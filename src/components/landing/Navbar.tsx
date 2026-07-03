@@ -36,10 +36,10 @@ const Navbar = () => {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
             <Button variant="ghost" asChild>
-              <Link to="/dashboard">Sign In</Link>
+              <Link to="/login">Sign In</Link>
             </Button>
             <Button variant="gold" asChild>
-              <Link to="/dashboard">Get Started Free</Link>
+              <Link to="/login">Get Started Free</Link>
             </Button>
           </div>
 
@@ -67,10 +67,10 @@ const Navbar = () => {
               </Link>
               <div className="flex flex-col gap-2 pt-4 border-t border-border">
                 <Button variant="outline" asChild className="w-full">
-                  <Link to="/dashboard">Sign In</Link>
+                  <Link to="/login">Sign In</Link>
                 </Button>
                 <Button variant="gold" asChild className="w-full">
-                  <Link to="/dashboard">Get Started Free</Link>
+                  <Link to="/login">Get Started Free</Link>
                 </Button>
               </div>
             </div>
