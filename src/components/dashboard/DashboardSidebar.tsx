@@ -10,6 +10,7 @@ import {
   HelpCircle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { clearCurrentUserProfile, getCurrentUserProfile } from "@/lib/userProfiles";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
@@ -26,8 +27,10 @@ const bottomItems = [
 const DashboardSidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const currentUser = getCurrentUserProfile();
 
   const handleSignOut = () => {
+    clearCurrentUserProfile();
     navigate("/signout");
   };
 
@@ -104,8 +107,9 @@ const DashboardSidebar = () => {
               JD
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-sidebar-foreground truncate">John Doe</p>
-              <p className="text-xs text-sidebar-foreground/60 truncate">john@example.com</p>
+              <p className="text-sm font-medium text-sidebar-foreground truncate">
+                {currentUser?.name ?? "Guest"}
+              </p>
             </div>
             <button
               onClick={handleSignOut}

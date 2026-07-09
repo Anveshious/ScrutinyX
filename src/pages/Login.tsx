@@ -1,12 +1,29 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { findUserProfileByCredentials, setCurrentUserProfile } from "@/lib/userProfiles";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const email = String(formData.get("email") ?? "").trim();
+    const password = String(formData.get("password") ?? "");
+
+    const profile = findUserProfileByCredentials(email, password);
+    if (!profile) {
+      setError("We couldn’t find an account with those details.");
+      return;
+    }
+
+    setCurrentUserProfile(profile);
+    navigate("/dashboard");
   };
 
   return (
@@ -18,13 +35,14 @@ const Login = () => {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {error ? <p className="text-sm text-destructive">{error}</p> : null}
             <div>
               <Label htmlFor="email">Email address</Label>
-              <Input id="email" type="email" placeholder="you@example.com" required className="mt-2" />
+              <Input id="email" name="email" type="email" placeholder="you@example.com" required className="mt-2" />
             </div>
             <div>
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" placeholder="Enter your password" required className="mt-2" />
+              <Input id="password" name="password" type="password" placeholder="Enter your password" required className="mt-2" />
             </div>
             <Button type="submit" className="w-full">Sign In</Button>
           </form>
