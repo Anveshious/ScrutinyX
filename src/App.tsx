@@ -11,6 +11,7 @@ import Chat from "./pages/Chat";
 import Documents from "./pages/Documents";
 import LawSearch from "./pages/LawSearch";
 import Settings from "./pages/Settings";
+import Signout from "./pages/Signout";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/documents" element={<Documents />} />
           <Route path="/search" element={<LawSearch />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/signout" element={<Signout />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

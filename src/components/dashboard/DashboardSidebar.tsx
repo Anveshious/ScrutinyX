@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { 
   LayoutDashboard, 
   MessageSquare, 
@@ -25,6 +25,11 @@ const bottomItems = [
 
 const DashboardSidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    navigate("/signout");
+  };
 
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-sidebar border-r border-sidebar-border flex flex-col">
@@ -102,7 +107,11 @@ const DashboardSidebar = () => {
               <p className="text-sm font-medium text-sidebar-foreground truncate">John Doe</p>
               <p className="text-xs text-sidebar-foreground/60 truncate">john@example.com</p>
             </div>
-            <button className="p-2 text-sidebar-foreground/60 hover:text-sidebar-foreground transition-colors">
+            <button
+              onClick={handleSignOut}
+              className="p-2 text-sidebar-foreground/60 hover:text-sidebar-foreground transition-colors"
+              aria-label="Sign out"
+            >
               <LogOut className="w-4 h-4" />
             </button>
           </div>
