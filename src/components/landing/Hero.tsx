@@ -62,37 +62,13 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Hero Image / Dashboard Preview */}
+        {/* Hero Image / Dashboard Preview (placeholder) */}
         <div className="mt-16 max-w-5xl mx-auto animate-fade-up" style={{ animationDelay: "0.5s" }}>
           <div className="relative rounded-2xl overflow-hidden shadow-elevated border border-border/50">
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10 pointer-events-none" />
             <div className="bg-card p-6 md:p-8">
-              {/* Mock Dashboard Header */}
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-3 h-3 rounded-full bg-destructive/50" />
-                <div className="w-3 h-3 rounded-full bg-accent/50" />
-                <div className="w-3 h-3 rounded-full bg-green-500/50" />
-              </div>
-              
-              {/* Mock Chat Interface */}
-              <div className="space-y-4">
-                <div className="flex gap-3">
-                  <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center">
-                    <MessageSquare className="w-4 h-4 text-accent" />
-                  </div>
-                  <div className="flex-1 bg-secondary rounded-xl rounded-tl-none p-4 max-w-md">
-                    <p className="text-sm text-foreground">What are my rights as a tenant if my landlord won't fix essential repairs?</p>
-                  </div>
-                </div>
-                
-                <div className="flex gap-3 justify-end">
-                  <div className="flex-1 bg-primary rounded-xl rounded-tr-none p-4 max-w-lg">
-                    <p className="text-sm text-primary-foreground">Based on tenant protection laws, you have several rights including the right to withhold rent, repair and deduct costs, or break your lease without penalty. Here's what you can do...</p>
-                  </div>
-                  <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-primary-foreground" />
-                  </div>
-                </div>
+              <div className="h-48 w-full rounded-xl bg-secondary flex items-center justify-center">
+                <span className="text-sm text-muted-foreground">Preview unavailable</span>
               </div>
             </div>
           </div>

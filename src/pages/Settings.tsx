@@ -53,11 +53,11 @@ const Settings = () => {
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-2xl font-bold">
-              JD
+              
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-foreground">John Doe</h3>
-              <p className="text-sm text-muted-foreground">john@example.com</p>
+              <h3 className="text-lg font-semibold text-foreground"></h3>
+              <p className="text-sm text-muted-foreground"></p>
             </div>
             <Button variant="outline" size="sm" className="ml-auto">
               Edit Profile
@@ -68,13 +68,13 @@ const Settings = () => {
               <label className="text-sm font-medium text-foreground mb-1.5 block">
                 Full Name
               </label>
-              <Input defaultValue="John Doe" />
+              <Input defaultValue="" />
             </div>
             <div>
               <label className="text-sm font-medium text-foreground mb-1.5 block">
                 Email
               </label>
-              <Input defaultValue="john@example.com" type="email" />
+              <Input defaultValue="" type="email" />
             </div>
           </div>
         </div>

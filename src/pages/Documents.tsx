@@ -34,46 +34,7 @@ interface AnalysisResult {
   };
 }
 
-const mockAnalysis: AnalysisResult = {
-  summary: "This is a standard employment contract between the employer (ABC Corporation) and employee. The contract outlines compensation, benefits, work responsibilities, and termination conditions. Overall, the terms are fairly standard for this type of agreement, with some notable clauses regarding non-compete and intellectual property.",
-  keyClauses: [
-    {
-      title: "Non-Compete Agreement",
-      content: "Employee agrees not to work for competing companies within a 50-mile radius for 2 years after termination.",
-      risk: "high",
-    },
-    {
-      title: "Intellectual Property",
-      content: "All work created during employment becomes exclusive property of the employer, including ideas conceived during personal time.",
-      risk: "medium",
-    },
-    {
-      title: "Termination Notice",
-      content: "Either party must provide 30 days written notice before termination, except in cases of gross misconduct.",
-      risk: "low",
-    },
-    {
-      title: "Compensation",
-      content: "Annual salary of $75,000 with quarterly performance reviews and potential bonuses up to 15% of base salary.",
-      risk: "low",
-    },
-  ],
-  risks: [
-    {
-      level: "critical",
-      message: "Non-compete clause is unusually broad (50-mile radius, 2 years). This may limit your future employment options significantly.",
-    },
-    {
-      level: "warning",
-      message: "IP clause includes 'personal time' which is atypical. Consider negotiating to limit to work hours only.",
-    },
-  ],
-  metadata: {
-    pages: 12,
-    type: "Employment Contract",
-    language: "English",
-  },
-};
+// Removed example/mock analysis data. Integrate real analysis pipeline here.
 
 const Documents = () => {
   const [isDragging, setIsDragging] = useState(false);
@@ -119,9 +80,8 @@ const Documents = () => {
       setUploadProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          // Simulate analysis after upload
+          // Simulate analysis completion — real analysis integration goes here
           setTimeout(() => {
-            setAnalysis(mockAnalysis);
             setIsAnalyzing(false);
           }, 1500);
           return 100;

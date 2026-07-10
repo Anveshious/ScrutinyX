@@ -26,56 +26,7 @@ interface SearchResult {
   tags: string[];
 }
 
-const mockResults: SearchResult[] = [
-  {
-    id: "1",
-    type: "law",
-    title: "Consumer Protection Act, 2019",
-    description: "An Act to provide for protection of the interests of consumers and for the said purpose, to establish authorities for timely and effective administration...",
-    reference: "Act No. 35 of 2019",
-    date: "August 9, 2019",
-    relevance: 98,
-    tags: ["Consumer Rights", "E-commerce", "Product Liability"],
-  },
-  {
-    id: "2",
-    type: "section",
-    title: "Section 2(7) - Definition of Consumer",
-    description: "'Consumer' means any person who buys any goods or hires or avails any service for a consideration which has been paid or promised...",
-    reference: "Consumer Protection Act, 2019",
-    relevance: 95,
-    tags: ["Definition", "Consumer"],
-  },
-  {
-    id: "3",
-    type: "case",
-    title: "Indian Oil Corp. Ltd. v. Consumer Education & Research Centre",
-    description: "Landmark judgment on product liability and consumer rights regarding defective products causing injury to consumers...",
-    reference: "(1995) 4 SCC 545",
-    date: "1995",
-    relevance: 89,
-    tags: ["Product Liability", "Defective Goods", "Compensation"],
-  },
-  {
-    id: "4",
-    type: "law",
-    title: "Information Technology Act, 2000",
-    description: "An Act to provide legal recognition for transactions carried out by means of electronic data interchange and other means of electronic communication...",
-    reference: "Act No. 21 of 2000",
-    date: "June 9, 2000",
-    relevance: 85,
-    tags: ["Digital", "E-commerce", "Cyber Law"],
-  },
-  {
-    id: "5",
-    type: "section",
-    title: "Section 75 - Product Liability Action",
-    description: "A product liability action may be brought by a complainant against a product manufacturer or a product service provider or a product seller...",
-    reference: "Consumer Protection Act, 2019",
-    relevance: 82,
-    tags: ["Product Liability", "Manufacturer", "Service Provider"],
-  },
-];
+// Removed mock search results. Wire up real search backend or datasource here.
 
 const filterOptions = [
   { label: "All", value: "all" },
@@ -93,11 +44,8 @@ const LawSearch = () => {
   const handleSearch = () => {
     if (!query.trim()) return;
     setHasSearched(true);
-    // Filter mock results based on active filter
-    const filtered = activeFilter === "all" 
-      ? mockResults 
-      : mockResults.filter(r => r.type === activeFilter);
-    setResults(filtered);
+    // TODO: integrate real search. Currently returns no sample results.
+    setResults([]);
   };
 
   const getTypeIcon = (type: string) => {
