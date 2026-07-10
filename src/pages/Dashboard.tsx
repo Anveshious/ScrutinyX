@@ -1,11 +1,13 @@
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
+import { getCurrentUserProfile } from "@/lib/userProfiles";
+import { getDashboardEvents, type DashboardEvent } from "@/lib/dashboardStore";
 import { Button } from "@/components/ui/button";
 import { 
   MessageSquare, 
   FileText, 
   Search, 
-  TrendingUp, 
   Clock, 
   ArrowRight,
   FileQuestion,
@@ -39,43 +41,35 @@ const quickActions = [
   },
 ];
 
-const recentActivity = [
-  {
-    type: "chat",
-    title: "Tenant Rights Question",
-    time: "2 hours ago",
-    icon: MessageSquare,
-  },
-  {
-    type: "document",
-    title: "Employment Contract.pdf",
-    time: "Yesterday",
-    icon: FileText,
-  },
-  {
-    type: "search",
-    title: "Consumer Protection Act",
-    time: "2 days ago",
-    icon: Search,
-  },
-  {
-    type: "chat",
-    title: "Business Registration Query",
-    time: "3 days ago",
-    icon: MessageSquare,
-  },
-];
-
-const stats = [
-  { label: "Questions Asked", value: "24", icon: MessageSquare },
-  { label: "Documents Analyzed", value: "12", icon: FileText },
-  { label: "Laws Searched", value: "38", icon: Scale },
-];
-
 const Dashboard = () => {
+  const currentUser = getCurrentUserProfile();
+  const [events, setEvents] = useState<DashboardEvent[]>([]);
+
+  useEffect(() => {
+    setEvents(getDashboardEvents(currentUser?.id));
+  }, [currentUser?.id]);
+
+  const stats = useMemo(() => {
+    const chatCount = events.filter((event) => event.type === "chat").length;
+    const documentCount = events.filter((event) => event.type === "document").length;
+    const searchCount = events.filter((event) => event.type === "search").length;
+
+    return [
+      { label: "Questions Asked", value: String(chatCount), icon: MessageSquare },
+      { label: "Documents Uploaded", value: String(documentCount), icon: FileText },
+      { label: "Laws Searched", value: String(searchCount), icon: Scale },
+    ];
+  }, [events]);
+
+  const recentActivity = useMemo(() => {
+    return events.slice(0, 4);
+  }, [events]);
+
+  const greeting = currentUser?.name ? `Welcome back, ${currentUser.name}` : "Welcome back";
+
   return (
     <DashboardLayout 
-      title="Welcome back, John" 
+      title={greeting}
       subtitle="Here's what's happening with your legal research"
     >
       {/* Stats Cards */}
@@ -133,21 +127,31 @@ const Dashboard = () => {
             <Button variant="ghost" size="sm">View All</Button>
           </div>
           <div className="space-y-4">
-            {recentActivity.map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-4 p-3 rounded-lg hover:bg-secondary/50 transition-colors cursor-pointer"
-              >
-                <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-muted-foreground" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-foreground truncate">{item.title}</p>
-                  <p className="text-xs text-muted-foreground">{item.time}</p>
-                </div>
-                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+            {recentActivity.length > 0 ? (
+              recentActivity.map((item, index) => {
+                const typeIcon = item.type === "chat" ? MessageSquare : item.type === "document" ? FileText : Search;
+                const timestamp = new Date(item.timestamp).toLocaleString();
+                return (
+                  <div
+                    key={item.id}
+                    className="flex items-center gap-4 p-3 rounded-lg hover:bg-secondary/50 transition-colors cursor-pointer"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
+                      <typeIcon className="w-5 h-5 text-muted-foreground" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-foreground truncate">{item.title}</p>
+                      <p className="text-xs text-muted-foreground">{timestamp}</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                  </div>
+                );
+              })
+            ) : (
+              <div className="rounded-xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
+                No dashboard activity yet. Your recent questions, document uploads, and searches will appear here once you use the app.
               </div>
-            ))}
+            )}
           </div>
         </div>
 

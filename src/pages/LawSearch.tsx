@@ -14,6 +14,8 @@ import {
   Tag
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getCurrentUserProfile } from "@/lib/userProfiles";
+import { addDashboardEvent } from "@/lib/dashboardStore";
 
 interface SearchResult {
   id: string;
@@ -44,7 +46,13 @@ const LawSearch = () => {
   const handleSearch = () => {
     if (!query.trim()) return;
     setHasSearched(true);
-    // TODO: integrate real search. Currently returns no sample results.
+    const currentUser = getCurrentUserProfile();
+    addDashboardEvent({
+      userId: currentUser?.id ?? "guest",
+      type: "search",
+      title: query.trim(),
+      details: `Searched for: ${query.trim()}`,
+    });
     setResults([]);
   };
 

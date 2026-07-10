@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
+import { addDashboardEvent } from "@/lib/dashboardStore";
+import { getCurrentUserProfile } from "@/lib/userProfiles";
 
 interface Message {
   id: string;
@@ -66,6 +68,14 @@ const Chat = () => {
     setIsLoading(true);
 
     // Simulate AI response
+    const currentUser = getCurrentUserProfile();
+    addDashboardEvent({
+      userId: currentUser?.id ?? "guest",
+      type: "chat",
+      title: input.trim() || "Legal question",
+      details: "User asked a legal question through chat",
+    });
+
     setTimeout(() => {
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),

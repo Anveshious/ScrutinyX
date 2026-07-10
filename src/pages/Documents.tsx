@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
+import { addDashboardEvent } from "@/lib/dashboardStore";
+import { getCurrentUserProfile } from "@/lib/userProfiles";
 
 interface AnalysisResult {
   summary: string;
@@ -76,10 +78,19 @@ const Documents = () => {
     setAnalysis(null);
 
     // Simulate upload progress
+    const currentUser = getCurrentUserProfile();
+    const uploadEventTitle = `${selectedFile.name} uploaded`;
+
     const interval = setInterval(() => {
       setUploadProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
+          addDashboardEvent({
+            userId: currentUser?.id ?? "guest",
+            type: "document",
+            title: uploadEventTitle,
+            details: `Uploaded file: ${selectedFile.name}`,
+          });
           // Simulate analysis completion — real analysis integration goes here
           setTimeout(() => {
             setIsAnalyzing(false);
